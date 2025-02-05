@@ -72,3 +72,6 @@ keybind = alt+3=goto_tab:8
 keybind = alt+3=goto_tab:9
 keybind = alt+3=goto_tab:0
 
+theme = catppuccin-mocha
+
+
