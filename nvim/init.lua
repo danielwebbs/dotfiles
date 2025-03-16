@@ -575,7 +575,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
+        -- gopls = {},
         --       pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured lsps
@@ -802,7 +802,7 @@ require('lazy').setup({
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
+  { 'Hoffs/omnisharp-extended-lsp.nvim' },
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
@@ -883,11 +883,11 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
@@ -916,6 +916,15 @@ require('lazy').setup({
     },
   },
 })
+
+vim.keymap.set('n', 'gr', function()
+  require('omnisharp_extended').telescope_lsp_references(require('telescope.themes').get_ivy { excludeDefinition = true })
+end, { noremap = true })
+vim.keymap.set('n', 'gd', require('omnisharp_extended').telescope_lsp_definition, { noremap = true })
+vim.keymap.set('n', '<leader>D', function()
+  require('omnisharp_extended').telescope_lsp_references()
+end, { noremap = true })
+vim.keymap.set('n', 'gi', require('omnisharp_extended').telescope_lsp_implementation, { noremap = true })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
