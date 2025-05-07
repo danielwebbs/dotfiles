@@ -803,6 +803,7 @@ require('lazy').setup({
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   { 'Hoffs/omnisharp-extended-lsp.nvim' },
+  -- Signature floating window https://github.com/ray-x/lsp_signature.nvim
   {
     'ray-x/lsp_signature.nvim',
     event = 'InsertEnter',
@@ -942,8 +943,5 @@ vim.keymap.set('n', '<leader>D', function()
   require('omnisharp_extended').telescope_lsp_references()
 end, { noremap = true })
 vim.keymap.set('n', 'gi', require('omnisharp_extended').telescope_lsp_implementation, { noremap = true })
-vim.keymap.set({ 'n' }, '<Leader>k', function()
-  vim.lsp.buf.signature_help()
-end, { silent = true, noremap = true, desc = 'toggle signature' })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
