@@ -165,12 +165,13 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', ']d', function()
   vim.diagnostic.jump { count = 1, float = true }
 end, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump { count = 1, float = true }
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump { count = -1, float = true }
 end, { desc = 'Go to next [D]iagnostic message' })
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>a', 'gg0vG$')
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -323,6 +324,7 @@ require('lazy').setup({
   require 'plugins.auto-complete',
   require 'plugins.auto-format',
   require 'plugins.omnisharp-extended',
+  -- require 'plugins.ai-agent',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

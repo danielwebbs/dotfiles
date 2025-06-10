@@ -1,4 +1,5 @@
--- NOTE: Plugins can specify dependencies.
+-- local omnisharp = require 'mason-lspconfig.server_configurations.omnisharp'
+-- NOTE: Plugins can specify dependencies.lsp
 --
 -- The dependencies are proper plugin specifications as well - anything
 -- you do for a plugin at the top level, you can do for a dependency.
@@ -133,7 +134,7 @@ return {
           })
         end
 
-        -- The following autocommand is used to enable inlay hints in your
+        -- The following autocommand is used to enable inlay hints in yourlsp
         -- code, if the language server you are using supports them
         --
         -- This may be unwanted, since they displace some of your code
@@ -174,7 +175,14 @@ return {
       -- But for many setups, the lsp (`tsserver`) will work just fine
       --tsserver = {},
       --
-
+      omnisharp = {
+        enable_import_completion = true,
+        organize_imports_on_format = true,
+        enable_roslyn_analyzers = true,
+        root_dir = function()
+          return vim.loop.cwd() -- current working directory
+        end,
+      },
       lua_ls = {
         -- cmd = {...},
         -- filetypes = { ...},
@@ -197,7 +205,7 @@ return {
     --    :Mason
     --
     --  You can press `g?` for help in this menu.
-    require('mason').setup()
+    require('mason').setup { PATH = 'prepend' }
 
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
